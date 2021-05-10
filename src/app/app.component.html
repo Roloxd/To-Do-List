@@ -1,0 +1,88 @@
+<div class="container">
+  <h1>My Todo List</h1>
+
+  <div style="display: flex;  flex-direction: row; justify-content: space-between;">
+    <form class="todo-form" #f="ngForm" (ngSubmit)="onSubmit(f)" >
+     
+      <mat-form-field id="nombref">
+          <input matInput placeholder="Nueva Tarea" type="text" name="nombre" id="nombre" ngModel>
+      </mat-form-field>
+
+      <mat-form-field id="datef">
+      <input matInput type="date" placeholder="Elige Fecha" name="fecha" id="fecha" ngModel>
+      </mat-form-field>
+
+      <button mat-raised-button type="submit">Crear</button>
+    </form>
+  </div>
+
+  
+  <h2>Lista de Tareas Pendientes</h2>
+  <table >
+    <tr>
+      <th>
+      Nombre 
+      <i class="fa fa-arrow-up" aria-hidden="true" (click)="sort('nombre',true)"></i>
+      <i class="fa fa-arrow-down" aria-hidden="true" (click)="sort('nombre',false)"></i>
+      </th>
+      <th>
+        Estado
+        <i class="fa fa-arrow-up" aria-hidden="true" (click)="sort('estado',true)"></i>
+        <i class="fa fa-arrow-down" aria-hidden="true" (click)="sort('estado',false)"></i>
+      </th>
+      <th>
+        Fecha
+        <i class="fa fa-arrow-up" aria-hidden="true" (click)="sort('fecha',true)"></i>
+        <i class="fa fa-arrow-down" aria-hidden="true" (click)="sort('fecha',false)"></i>
+      </th>
+      <th>
+        Acciones
+      </th>
+    </tr>
+    <ng-container *ngFor= "let todo of todos">
+    <tr *ngIf="this.todo.estado != 'Completado'">
+    
+      <td>  
+        <span *ngIf="!todo.editable">{{todo.nombre}}</span>
+        <input type="text" class="form-control" [(ngModel)]="todo.nombre" *ngIf="todo.editable"/>
+      </td>
+      <td>{{this.todo.estado}}</td>
+      <td>{{this.todo.fecha}}</td>
+      <td>
+        <i class="fa fa-check" aria-hidden="true" style="color: green;margin-right: 0.5em;" (click)="estadoTodo(this.todo.id)"></i>
+        <i class="fa fa-trash" aria-hidden="true" style="color: red; margin-right: 0.5em;" (click)="deleteTodo(this.todo.id)"></i>
+        <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: blue;"  (click)="editTodo(todo)"></i>
+      </td>
+    </tr>
+    </ng-container>
+  </table>
+
+  <h2>Lista de Tareas Completadas</h2>
+
+  <table >
+    <tr>
+      <th>Nombre</th>
+      <th>Estado</th>
+      <th>Fecha</th>
+    </tr>
+    <ng-container *ngFor= "let todo of todos">
+    <tr *ngIf="this.todo.estado == 'Completado'">
+        <td>  
+        <span *ngIf="!todo.editable">{{todo.nombre}}</span>
+        <input type="text" class="form-control" [(ngModel)]="todo.nombre" *ngIf="todo.editable"/>
+      </td>
+      <td>{{this.todo.estado}}</td>
+      <td>{{this.todo.fecha}}</td>
+      <td>
+        <i class="fa fa-trash" aria-hidden="true" style="color: red;" (click)="deleteTodo(this.todo.id)"></i>
+      </td>
+    </tr>
+    </ng-container>
+  </table>
+
+</div>
+
+
+ 
+
+
