@@ -1,5 +1,6 @@
 ## Antes de arrancar el programa
 
+npm install --save-dev @angular-devkit/build-angular
 
 ## Para arrancar el programa
 
